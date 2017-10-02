@@ -1268,8 +1268,8 @@ class S3(object):
             ConnMan.put(conn)
             if retries:
                 warning("Retrying failed request: %s (%s)" % (resource['uri'], e))
-                warning("Waiting %d sec..." % self._fail_wait(retries))
-                time.sleep(self._fail_wait(retries))
+                warning("Waiting 1 sec...")
+                time.sleep(1)
                 return self.send_request(request, retries - 1)
             else:
                 raise S3RequestError("Request failed for: %s" % resource['uri'])
@@ -1279,7 +1279,8 @@ class S3(object):
             debug("Response:\n" + pprint.pformat(response))
             raise
 
-        debug("Response:\n" + pprint.pformat(response))
+        # debug("Response:\n" + pprint.pformat(response))
+        debug('Success!')
 
         if response["status"] in [301, 307]:
             ## RedirectTemporary or RedirectPermanent
